@@ -9,10 +9,12 @@ from pygame.locals import *
 from settings import *
 import control # Importerer vår egen fil: control.py 
 
+#ball_angle = 0
 ball_dx = 0
 ball_dy = 1
 # Bruker et pygame.Rect for å holde kontroll på ballen
-ball = pygame.Rect(DISPLAY_RESOLUTION[0]/2, 0, 50,50)
+ball_rect = pygame.Rect(DISPLAY_RESOLUTION[0]/2, 0, 50,50)
+
 
 
 
@@ -39,15 +41,33 @@ def draw():
     pygame.draw.circle( 
         surface, # surface vi tegner på
         (255, 0, 0), # farge - RGB
-        (ball.left, ball.top), # posisjon
-        int(ball.width/2) # radius
+        (ball_rect.left, ball_rect.top), # posisjon
+        int(ball_rect.width/2) # radius
         )
+    # "Tegner" bilde
+    # surface.blit(ball_image, ball_rect)
+
+    # Vi kan også rotere ballen
+    #surface.blit(pygame.transform.rotate(ball_image, ball_angle), ball_rect)
+
 
 # Oppdatere ting
 def update():
-    ball.top += ball_dy
+    ball_rect.top += ball_dy
+    #Roterende ball
+    #global ball_angle
+    #ball_angle += 1
+    
+    #if ball_angle >= 360:
+    #    ball_angle = 0
+    
 
 screen, surface, clock = control.pygame_init() # Initialiserer pygame mm.
+# Vi kan også bruke et bilde
+ball_image = control.pygame_load_image('chrome.png', (50,50))
+
+
+
 # Program løkken som gjentar seg "evig"    
 while True:
     # Fanger opp hendelser 
