@@ -21,7 +21,7 @@ def pygame_init():
     pygame.font.init()
     # Setter opp at tastetrykk skal repeteres automatisk
     # Dokumentasjon: https://www.pygame.org/docs/ref/key.html#pygame.key.set_repeat
-    pygame.key.set_repeat(10, 10) 
+    #pygame.key.set_repeat(10, 10) 
     # Setter opp "skjerm" - angir størrelse på vinduet.
     # https://www.pygame.org/docs/ref/display.html#pygame.display.set_mode
     screen = pygame.display.set_mode(DISPLAY_RESOLUTION)

@@ -11,14 +11,15 @@ import control # Importerer vår egen fil: control.py
 
 #ball_angle = 0
 ball_dx = 0
-ball_dy = 1
+ball_dy = 0
 # Bruker et pygame.Rect for å holde kontroll på ballen
 ball_rect = pygame.Rect(DISPLAY_RESOLUTION[0]/2, 0, 50,50)
 
 
-
-
 def handle_event(event):
+    global ball_dx
+    global ball_dy
+    
     # Avslutter ved vindu [X]
     if (event.type == QUIT):
         pygame.quit()
@@ -26,10 +27,13 @@ def handle_event(event):
     # Et tastetrykk? Dokuemtasjon: https://www.pygame.org/docs/ref/key.html
     elif event.type == KEYDOWN:
         if event.key == K_UP:
-            pass
+            ball_dy -= 1
         elif event.key == K_DOWN:
-            pass
-    
+            ball_dy += 1
+        elif event.key == K_LEFT:
+            ball_dx -= 1
+        elif event.key == K_RIGHT:
+            ball_dx += 1
 
 # Tegner ting
 def draw():
@@ -38,14 +42,16 @@ def draw():
     surface.fill((255, 255, 255))
     # Tegner en fylt sirkel
     # Dokuemtasjon: https://www.pygame.org/docs/ref/draw.html#pygame.draw.circle
+    '''
     pygame.draw.circle( 
         surface, # surface vi tegner på
         (255, 0, 0), # farge - RGB
         (ball_rect.left, ball_rect.top), # posisjon
         int(ball_rect.width/2) # radius
         )
+    '''
     # "Tegner" bilde
-    # surface.blit(ball_image, ball_rect)
+    surface.blit(ball_image, ball_rect)
 
     # Vi kan også rotere ballen
     #surface.blit(pygame.transform.rotate(ball_image, ball_angle), ball_rect)
@@ -53,7 +59,20 @@ def draw():
 
 # Oppdatere ting
 def update():
+    global ball_dx
+    global ball_dy
+
     ball_rect.top += ball_dy
+    ball_rect.left += ball_dx
+    if (ball_rect.right >= DISPLAY_RESOLUTION[0]) or (ball_rect.left <= 0):
+        ball_dx = ball_dx*-1
+    
+
+    if (ball_rect.bottom >= DISPLAY_RESOLUTION[1]) or (ball_rect.top <= 0):
+        ball_dy = ball_dy*-1
+
+    
+    
     #Roterende ball
     #global ball_angle
     #ball_angle += 1
