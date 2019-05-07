@@ -78,17 +78,22 @@ def update():
 
     ball_rect.top += ball_dy
     ball_rect.left += ball_dx
+    # Lar bare ballen gå ut når den treffer høyre kant
     if (ball_rect.right >= DISPLAY_RESOLUTION[0] - PADDLE_SIZE[0]):
         pass
+    # Lar den bare sprettet tilbake om den treffer venstre kan
     if (ball_rect.left <= 0):
         ball_dx = ball_dx*-1
 
+    # Treffer bunnen eller toppen
     if (ball_rect.bottom >= DISPLAY_RESOLUTION[1]) or (ball_rect.top <= 0):
         ball_dy = ball_dy*-1
 
+    # Treffer venstre paddle (Player 1)
     if p1_rect.colliderect(ball_rect):
         ball_dx = ball_dx*-1
 
+    # Treffer høyre paddle (Player 2)
     if p2_rect.colliderect(ball_rect):
         ball_dx = ball_dx*-1
 
